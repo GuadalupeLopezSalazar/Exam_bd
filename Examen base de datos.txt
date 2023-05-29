@@ -1,0 +1,685 @@
+/*                         Guadalupe Lopez Salazar 6S12                         */
+/*                    EJERCICIO 1                     */
+
+drop table alumnos_tesoem;
+truncate table alumnos_tesoem;
+
+create table alumnos_tesoem(                                   /*CREACION DE LA TABLA ALUMNOS_TESOEM*/
+id_alum number(10) constraint pk_id_alum primary key,
+matricula_alum number(20) unique,
+nombre_alum  char(25) not null,
+paterno_alum char(25) not null,
+materno_alum char(25) not null,
+carrera_alum char(50) not null,
+grupo_alum nvarchar2(15) not null,
+semestre_alum  nvarchar2(15) not null,
+edificio_alum  char(15) default 'Desconocido',
+promedio_alum number(10) not null
+);
+
+select*from alumnos_tesoem;
+
+create or replace procedure pa_insertar_alumnos          /*Creamos o reemplazamos el procedimiento almacenado y le asignamos el nombre con buenas practicas*/
+(al_id_alum number default 0, al_matricula_alum number default 0, al_nombre_alum char default 'Desconocido',                            /*Pasamos parametros*/
+al_paterno_alum char default 'Desconocido', al_materno_alum char default 'Desconocido', al_carrera_alum char default 'Desconocido',
+al_grupo_alum nvarchar2 default 'Desconocido', al_semestre_alum nvarchar2 default 'Desconocido', al_edificio_alum char default 'Desconocido',
+al_promedio_alum number default 0)
+as
+begin
+insert into alumnos_tesoem values (al_id_alum, al_matricula_alum, al_nombre_alum, al_paterno_alum, al_materno_alum,
+al_carrera_alum ,al_grupo_alum, al_semestre_alum, al_edificio_alum, al_promedio_alum);
+end;
+/
+
+
+
+EXECUTE pa_insertar_alumnos;      /*Ejecutamos el procedimiento almacenado*/
+
+
+
+EXECUTE pa_insertar_alumnos(1,227020026,'Ángel', 'Garcia','Emily','TICS','4T11','4','E',99);            /*Ejecutamos e insertamos en el procedimiento almacenado los datos recabados*/
+EXECUTE pa_insertar_alumnos(2,227020021,'Maira Jocelyn','Navarro','Garcia','TICS','4T11','4','E',70);
+EXECUTE pa_insertar_alumnos(3,227020002,'Fernando','Báez','Valencia','TICS','8T11','8','E',90);
+EXECUTE pa_insertar_alumnos(4,207010006,'Angel Gabriel','Hernandez','Garcia','TICS','7T11','7','E',93);
+EXECUTE pa_insertar_alumnos(5,227020031,'Iris Jazmin','Patricio','Martinez','TICS','2T11','2','E',86);
+EXECUTE pa_insertar_alumnos(6,217020020,'Jorge','Avila','Loranca','TICS','4T11','4','E',75);
+EXECUTE pa_insertar_alumnos(7,227020022,'Josué','Manjarez','Zumoza','TICS','4T11','4','E',84);
+EXECUTE pa_insertar_alumnos(8,207010014,'Pamela','Perez','Ayala','TICS','7T11','7','E',93);
+EXECUTE pa_insertar_alumnos(9,227020025,'Yocelin','Hernandez','Hernandez','TICS','2T11','2','E',86);
+EXECUTE pa_insertar_alumnos(10,227020010,'Beatriz','Gonzalez','Gonzalez','TICS','2T11','2','E',90);
+
+EXECUTE pa_insertar_alumnos(11,222020003,'Yoana','Aranda','Tapia','Administración','2IAD11','2','D',92);
+EXECUTE pa_insertar_alumnos(12,192020019,'Naydelin','García','Velasco','Administración','8IAD11','8','D',85);
+EXECUTE pa_insertar_alumnos(13,202020011,'Israel','Salazar','Ramirez','Administración','6IAD11','6','D',90);
+EXECUTE pa_insertar_alumnos(14,202020036,'Fernanda','Santana','Patiño','Administración','5AD11','5','D',90);
+EXECUTE pa_insertar_alumnos(15,192020021,'Frida Fernanda','Sanchez','Plaza','Administración','8IAD11','8','D',97);
+EXECUTE pa_insertar_alumnos(16,202020063,'Sandra','Ortega','Santiago','Administración','6IAD11','6','D',93);
+EXECUTE pa_insertar_alumnos(17,202020008,'Miriam','Gutierrez','Aguilar','Administración','6IAD11','6','D',95);
+EXECUTE pa_insertar_alumnos(18,192022001,'Angel','Guerrero','Rodriguez','Administración','7IAD11','7','D',83);
+EXECUTE pa_insertar_alumnos(19,192020103,'Ulises','Cisneros','Dominguez','Admnistración','8IAD11','8','D',87);
+EXECUTE pa_insertar_alumnos(20,212020086,'Lesslie Guadalupe','Luna','Monroy','Administración','4AD12','4','D',87);
+
+EXECUTE pa_insertar_alumnos(21,205020010,'Guadalupe','Miron','Lino','Energias Renovables','6R11','6','I',92);
+EXECUTE pa_insertar_alumnos(22,225020001,'Saul Pedro','Sanchez','Sanchez','Energias Renovables','2E11','2','I',79);
+EXECUTE pa_insertar_alumnos(23,225020007,'Emerson','Arrocho','Alarcon','Energias Renovables','2E11','2','I',94);
+EXECUTE pa_insertar_alumnos(24,205020006,'Nelly','Lopez','Lozada','Energias Renovables','6R11','6','I',86);
+EXECUTE pa_insertar_alumnos(25,205020013,'Gabriel','Luna','Barrera','Energias Renovables','6R11','6','I',84);
+EXECUTE pa_insertar_alumnos(26,225020002,'Sipriano','Salgado','Fernandez','Energias Renovables','6R11','6','I',86);
+EXECUTE pa_insertar_alumnos(27,205020005,'Luis Alberto','Santiago','Garcia','Energias Renovables','6R11','6','I',86);
+EXECUTE pa_insertar_alumnos(28,205020001,'Guadalupe','Hernandez','Cruz','Energias Renovables','6R11','6','I',86);
+EXECUTE pa_insertar_alumnos(29,195020004,'Jesús Uriel','Valdez','Bobadilla','Energias Renovables','7R11','7','I',91);
+EXECUTE pa_insertar_alumnos(30,215020003,'Alexis','Carvajal','Gomez','Energias Renovables','4R11','4','I',87);
+
+EXECUTE pa_insertar_alumnos(31,201020058,'Silvia','Rodriguez','Villa','Contabilidad','6C21','6','I',86);
+EXECUTE pa_insertar_alumnos(32,201000253,'Miriam','Rojas','Nicolas','Contabilidad','6C11','6','I',76);
+EXECUTE pa_insertar_alumnos(33,201020074,'Evelin','Cruz','Herrera','Contabilidad','6C11','6','I',90);
+EXECUTE pa_insertar_alumnos(34,221020022,'Jonatan','De la Cruz','Rendon','Contabilidad','2C11','2','I',92);
+EXECUTE pa_insertar_alumnos(35,201020002,'Shirley','Martinez','Cabrera','Contabilidad','6C11','6','I',81);
+EXECUTE pa_insertar_alumnos(36,201020009,'Anayeli','Nicolas','Mendez','Contabilidad','6C11','6','I',89);
+EXECUTE pa_insertar_alumnos(37,201020040,'Hittai','Nieto','Ibarra','Contabilidad','6C11','6','I',81);
+EXECUTE pa_insertar_alumnos(38,221020036,'Fernando','Miguel','Parente','Contabilidad','2C11','2','I',78);
+EXECUTE pa_insertar_alumnos(39,201020092,'Wendy Itzel','Patiño','Solano','Contabilidad','6C21','6','I',82);
+EXECUTE pa_insertar_alumnos(40,201020086,'Guadalupe','Galicia','Cabrera','Contabilidad','6C21','6','I',76);
+
+EXECUTE pa_insertar_alumnos(41,234010002,'Esther','Alquino','Mendoza','Ambiental','1A11','1','H',80);
+EXECUTE pa_insertar_alumnos(42,214020146,'Kate Leslie','De la Rosa','Chavez','Ambiental','8A12','8','H',80);
+EXECUTE pa_insertar_alumnos(43,214020019,'Jesus Eduardo','Chiquini','Lopez','Ambiental','4A11','4','H',88);
+EXECUTE pa_insertar_alumnos(44,214020024,'Gemma Yamilet','Martinez','Cruz','Ambiental','4A11','4','H',70);
+EXECUTE pa_insertar_alumnos(45,214020032,'Marivel','Estrada','Miranda','Ambiental','4A11','4','H',90);
+EXECUTE pa_insertar_alumnos(46,214020012,'Raul Alejandro','Navarrete','Cruz','Ambiental','4A11','4','H',90);
+EXECUTE pa_insertar_alumnos(47,214020033,'Miguel Angel','Juarez','Torres','Ambiental','4A11','4','H',82);
+EXECUTE pa_insertar_alumnos(48,214020035,'Ismael','Hernadez','Juarez','Ambiental','4A11','4','H',80);
+EXECUTE pa_insertar_alumnos(49,214020003,'Asael David','Corona','Luna','Ambiental','4A11','4','H',86);
+EXECUTE pa_insertar_alumnos(50,214002022,'Manuel Isaac','Cabañas','Pineda','Ambiental','4A11','4','H',85);
+
+EXECUTE pa_insertar_alumnos(51,220020068,'Carlos Miguel','Flores','Corona','Gastronomia','2G11','2','C',93);
+EXECUTE pa_insertar_alumnos(52,220020056,'Beatriz','Dominguez','Juarez','Gastronomia','2G11','2','C',89);
+EXECUTE pa_insertar_alumnos(53,220020106,'Yeraldine','Islas','Ponce','Gastronomia','2G11','2','C',91);
+EXECUTE pa_insertar_alumnos(54,220020139,'Cesar Armando','Mendez','Casillas','Gastronomia','2G11','2','C',80);
+EXECUTE pa_insertar_alumnos(55,200010011,'Fredy','Galvez','Barranco','Gastronomia','7G11','7','C',94);
+EXECUTE pa_insertar_alumnos(56,200010045,'Enrique','Zuleta','Lopez','Gastronomia','7G11','7','C',93);
+EXECUTE pa_insertar_alumnos(57,200010017,'Lizet','Hernandez','Gonzales','Gastronomia','7G11','7','C',91);
+EXECUTE pa_insertar_alumnos(58,200010012,'Alberto','García','Melecio','Gastronomia','7G11','7','C',94);
+EXECUTE pa_insertar_alumnos(59,220020128,'Alexis','Castillo','Martinez','Gastronomia','2G21','2','C',87);
+EXECUTE pa_insertar_alumnos(60,200020046,'Alexander','Aguilar','Velazquez','Gastronomia','6G11','6','C',91);
+
+EXECUTE pa_insertar_alumnos(61,219020014,'Jorge Eduardo','Martinez','Martinez','Sistemas Automotrices','4SA11','4','F',91);
+EXECUTE pa_insertar_alumnos(62,219020020,'Brayan ','Israel','Julion','Sistemas Automotrices','4SA21','4','E',80);
+EXECUTE pa_insertar_alumnos(63,219020051,'Alan','Ayala','Cordoba','Sistemas Automotrices','4SA21','4','E',86);
+EXECUTE pa_insertar_alumnos(64,229020127,'Daniel','Lopez','Moreno','Sistemas Automotrices','2SA21','2','E',75);
+EXECUTE pa_insertar_alumnos(65,229020017,'Mauricio ','Figueroa','Coxnnica','Sistemas Automotrices','2SA21','2','E',81);
+EXECUTE pa_insertar_alumnos(66,229020004,'Elber Isaac','Ascaio','Gamboa','Sistemas Automotrices','2SA21','2','E',79);
+EXECUTE pa_insertar_alumnos(67,229020014,'Cristian Yael','Rivera','Velazco','Sistemas Automotrices','2SA21','2','E',83);
+EXECUTE pa_insertar_alumnos(68,229020010,'Axel Joaff','Alonso','Reyes','Sistemas Automotrices','2SA21','2','E',84);
+EXECUTE pa_insertar_alumnos(69,229020008,'Luis Fernando','Palma','Borajas','Sistemas Automotrices','2SA21','2','E',82);
+EXECUTE pa_insertar_alumnos(70,229020235,'Erick Juan','Salto','Vargas','Sistemas Automotrices','2SA21','2','E',75);
+
+EXECUTE pa_insertar_alumnos(71,213010021,'Emmanuel','López','Nicolás','Ingeniería Industrial','4I11','4','F',93);
+EXECUTE pa_insertar_alumnos(72,193020078,'Jeny Guadalupe','Cruz','Leal','Ingeniería Industrial','6I12','6','F',82);
+EXECUTE pa_insertar_alumnos(73,203020077,'Eduardo Jesús','Garcia','Ferreira','Ingeniería Industrial','6I12','6','E',83);
+EXECUTE pa_insertar_alumnos(74,102030000,'Juan de Dios','Sánchez','Durán','Ingeniería Industrial','7I11','7','F',95);
+EXECUTE pa_insertar_alumnos(75,203020080,'Alejandro','Figueroa','Coxtinica','Ingeniería Industrial','6I21','6','F',87);
+EXECUTE pa_insertar_alumnos(76,213020025,'Veronica','Gonzalez','Contreras','Ingeniería Industrial','4I11','4','F',73);
+EXECUTE pa_insertar_alumnos(77,203020079,'Miguel Angel','Islas','Rosas','Ingeniería Industrial','6I21','6','F',86);
+EXECUTE pa_insertar_alumnos(78,223020057,'Melany Nicole','Sánchez','Flores','Ingeniería Industrial','2I12','2','E',80);
+EXECUTE pa_insertar_alumnos(79,233012005,'Raul Alejandro','Rangel','Ramirez','Ingeniería Industrial','7I11','7','F',88);
+EXECUTE pa_insertar_alumnos(80,233012006,'Sergio','Suarez','Corona','Ingeniería Industrial','7I11','7','F',87);
+
+EXECUTE pa_insertar_alumnos(81,206020008,'Evelin Lizet','Cruz','Martinez','Sistemas Computacionales','6S12','6','B',91);
+EXECUTE pa_insertar_alumnos(82,206020047,'Ariana Estefania','Rodriguez','Monroy','Sistemas Computacionales','6S12','6','B',90);
+EXECUTE pa_insertar_alumnos(83,206020051,'Juan Pablo','Espinosa','Rodriguez','Sistemas Computacionales','6S11','6','A',92);
+EXECUTE pa_insertar_alumnos(84,219020019,'Uriel','Mendoza','Loza','Sistemas Computacionales','3S11','3','B',70);
+EXECUTE pa_insertar_alumnos(85,206010028,'Cristian Alejandro','Romero','Rojano','Sistemas Computacionales','7s11','7','B',93);
+EXECUTE pa_insertar_alumnos(86,206020028,'Brayan','Rodríguez','Rodríguez','Sistemas Computacionales','6S11','6','A',94);
+EXECUTE pa_insertar_alumnos(87,216020086,'Alexis','Gomez','Medina','Sistemas Computacionales','3S11','3','B',80);
+EXECUTE pa_insertar_alumnos(88,206020014,'Luis Alfredo','Guzmán','Collado','Sistemas Computacionales','6S11','6','A',70);
+EXECUTE pa_insertar_alumnos(89,186010117,'Angel Rafael','Mercado','Martinez','Sistemas Computacionales','4s21','4','A',83);
+EXECUTE pa_insertar_alumnos(90,216020104,'Mariana','Valdes','Munguía','Sistemas Computacionales','4S21','4','A',85);
+
+---------------------------------------------------------------------------------------------
+
+/*                    TABLA POR CARRERA                     */
+
+create table sistemas(        /*Creacion de tabla de la carrera de sistemas*/
+id_als number(10) constraint pk_id_als primary key,
+matricula_als number(20) unique,
+nombre_als char(25) not null,
+apellidos_als char(60) not null,
+grupo_als nvarchar2(20) not null,
+edificio_als char(15) default 'Desconocido'
+);
+
+drop table sistemas;
+truncate table sistemas;
+
+create or replace procedure pa_llenar_sistemas          /*Creamos o reemplazamos el procedimiento almacenado y le asignamos el nombre con buenas practicas*/
+as
+begin
+insert into sistemas (id_als,matricula_als,nombre_als,apellidos_als,grupo_als, edificio_als)
+select id_alum,matricula_alum,nombre_alum,paterno_alum||' '||materno_alum,grupo_alum,edificio_alum 
+from alumnos_tesoem where carrera_alum='Sistemas Computacionales';
+end;
+/
+
+EXECUTE pa_llenar_sistemas;
+select * from sistemas;
+------------------------------------------------------------------------------------------
+
+create table contabilidad(    /*Creacion de tabla de la carrera de contabilidad*/
+id_alc number(10) constraint pk_id_alc primary key,
+matricula_alc number(20) unique,
+nombre_alc char(25) not null,
+apellidos_alc char(60) not null,
+grupo_alc nvarchar2(20) not null,
+edificio_alc char(15) default 'Desconocido'
+);
+
+drop table contabilidad;
+truncate table contabilidad;
+
+create or replace procedure pa_llenar_contabilidad        /*Creamos o reemplazamos el procedimiento almacenado y le asignamos el nombre con buenas practicas*/
+as
+begin
+insert into contabilidad (id_alc,matricula_alc,nombre_alc,apellidos_alc,grupo_alc, edificio_alc)
+select id_alum,matricula_alum,nombre_alum,paterno_alum||' '||materno_alum,grupo_alum,edificio_alum 
+from alumnos_tesoem where carrera_alum='Contabilidad';
+end;
+/
+
+EXECUTE pa_llenar_contabilidad;
+select * from contabilidad;
+------------------------------------------------------------------------------------------
+create table gastronomia(    /*Creacion de tabla de la carrera de gastronomia*/
+id_alg number(10) constraint pk_id_alg primary key,
+matricula_alg number(20) unique,
+nombre_alg char(25) not null,
+apellidos_alg char(60) not null,
+grupo_alg nvarchar2(20) not null,
+edificio_alg char(15) default 'Desconocido'
+);
+
+drop table gastronomia;
+truncate table gastronomia;
+
+create or replace procedure pa_llenar_gastronomia          /*Creamos o reemplazamos el procedimiento almacenado y le asignamos el nombre con buenas practicas*/
+as
+begin
+insert into gastronomia (id_alg,matricula_alg,nombre_alg,apellidos_alg,grupo_alg, edificio_alg)
+select id_alum,matricula_alum,nombre_alum,paterno_alum||' '||materno_alum,grupo_alum,edificio_alum 
+from alumnos_tesoem where carrera_alum='Gastronomia';
+end;
+/
+
+EXECUTE pa_llenar_gastronomia;
+select * from gastronomia;
+------------------------------------------------------------------------------------------
+
+create table administracion(    /*Creacion de tabla de la carrera de administracion*/
+id_alad number(10) constraint pk_id_alad primary key,
+matricula_alad number(20) unique,
+nombre_alad char(25) not null,
+apellidos_alad char(60) not null,
+grupo_alad nvarchar2(20) not null,
+edificio_alad char(15) default 'Desconocido'
+);
+
+drop table administracion;
+truncate table administracion;
+
+create or replace procedure pa_llenar_administracion            /*Creamos o reemplazamos el procedimiento almacenado y le asignamos el nombre con buenas practicas*/
+as
+begin
+insert into administracion (id_alad,matricula_alad,nombre_alad,apellidos_alad,grupo_alad, edificio_alad)
+select id_alum,matricula_alum,nombre_alum,paterno_alum||' '||materno_alum,grupo_alum,edificio_alum 
+from alumnos_tesoem where carrera_alum='Administración';
+end;
+/
+
+EXECUTE pa_llenar_administracion;
+select * from administracion;
+------------------------------------------------------------------------------------------
+
+create table industrial(      /*Creacion de tabla de la carrera de industrial*/
+id_ali number(10) constraint pk_id_ali primary key,
+matricula_ali number(20) unique,
+nombre_ali char(25) not null,
+apellidos_ali char(60) not null,
+grupo_ali nvarchar2(20) not null,
+edificio_ali char(15) default 'Desconocido'
+);
+
+drop table industrial;
+truncate table industrial;
+
+create or replace procedure pa_llenar_industrial       /*Creamos o reemplazamos el procedimiento almacenado y le asignamos el nombre con buenas practicas*/
+as
+begin
+insert into industrial (id_ali,matricula_ali,nombre_ali,apellidos_ali,grupo_ali, edificio_ali)
+select id_alum,matricula_alum,nombre_alum,paterno_alum||' '||materno_alum,grupo_alum,edificio_alum 
+from alumnos_tesoem where carrera_alum='Ingeniería Industrial';
+end;
+/
+
+EXECUTE pa_llenar_industrial;
+select * from industrial;
+------------------------------------------------------------------------------------------
+
+create table automotrices(     /*Creacion de tabla de la carrera de automotrices*/
+id_alaut number(10) constraint pk_id_alaut primary key,
+matricula_alaut number(20) unique,
+nombre_alaut char(25) not null,
+apellidos_alaut char(60) not null,
+grupo_alaut nvarchar2(20) not null,
+edificio_alaut char(15) default 'Desconocido'
+);
+
+drop table automotrices;
+truncate table automotrices;
+
+create or replace procedure pa_llenar_automotrices    /*Creamos o reemplazamos el procedimiento almacenado y le asignamos el nombre con buenas practicas*/
+as
+begin
+insert into automotrices (id_alaut,matricula_alaut,nombre_alaut,apellidos_alaut,grupo_alaut, edificio_alaut)
+select id_alum,matricula_alum,nombre_alum,paterno_alum||' '||materno_alum,grupo_alum,edificio_alum 
+from alumnos_tesoem where carrera_alum='Sistemas Automotrices';
+end;
+/
+
+EXECUTE pa_llenar_automotrices;
+select * from automotrices;
+------------------------------------------------------------------------------------------
+
+create table tics(     /*Creacion de tabla de la carrera de tics*/
+id_alt number(10) constraint pk_id_alt primary key,
+matricula_alt number(20) unique,
+nombre_alt char(25) not null,
+apellidos_alt char(60) not null,
+grupo_alt nvarchar2(20) not null,
+edificio_alt char(15) default 'Desconocido'
+);
+
+drop table tics;
+truncate table tics;
+
+create or replace procedure pa_llenar_tics              /*Creamos o reemplazamos el procedimiento almacenado y le asignamos el nombre con buenas practicas*/
+as
+begin
+insert into tics (id_alt,matricula_alt,nombre_alt,apellidos_alt,grupo_alt, edificio_alt)
+select id_alum,matricula_alum,nombre_alum,paterno_alum||' '||materno_alum,grupo_alum,edificio_alum 
+from alumnos_tesoem where carrera_alum='TICS';
+end;
+/
+
+EXECUTE pa_llenar_tics;
+select * from tics;
+------------------------------------------------------------------------------------------
+
+create table ambiental(     /*Creacion de tabla de la carrera de ambiental*/
+id_alamb number(10) constraint pk_id_alamb primary key,
+matricula_alamb number(20) unique,
+nombre_alamb char(25) not null,
+apellidos_alamb char(60) not null,
+grupo_alamb nvarchar2(20) not null,
+edificio_alamb char(15) default 'Desconocido'
+);
+
+drop table ambiental;
+truncate table ambiental;
+
+create or replace procedure pa_llenar_ambiental            /*Creamos o reemplazamos el procedimiento almacenado y le asignamos el nombre con buenas practicas*/
+as
+begin
+insert into ambiental (id_alamb,matricula_alamb,nombre_alamb,apellidos_alamb,grupo_alamb, edificio_alamb)
+select id_alum,matricula_alum,nombre_alum,paterno_alum||' '||materno_alum,grupo_alum,edificio_alum 
+from alumnos_tesoem where carrera_alum='Ambiental';
+end;
+/
+
+EXECUTE pa_llenar_ambiental;
+select * from ambiental;
+------------------------------------------------------------------------------------------
+
+create table energiasrenovables(     /*Creacion de tabla de la carrera de energiasrenovables*/
+id_aler number(10) constraint pk_id_aler primary key,
+matricula_aler number(20) unique,
+nombre_aler char(25) not null,
+apellidos_aler char(60) not null,
+grupo_aler nvarchar2(20) not null,
+edificio_aler char(15) default 'Desconocido'
+);
+
+drop table energiasrenovables;
+truncate table energiasrenovables;
+
+create or replace procedure pa_llenar_energiasrenovables        /*Creamos o reemplazamos el procedimiento almacenado y le asignamos el nombre con buenas practicas*/
+as
+begin
+insert into energiasrenovables (id_aler,matricula_aler,nombre_aler,apellidos_aler,grupo_aler, edificio_aler)
+select id_alum,matricula_alum,nombre_alum,paterno_alum||' '||materno_alum,grupo_alum,edificio_alum 
+from alumnos_tesoem where carrera_alum='Energias Renovables';
+end;
+/
+
+EXECUTE pa_llenar_energiasrenovables;
+select * from energiasrenovables;
+------------------------------------------------------------------------------------------
+
+/*                    ACTIVIDAD 2                           */
+
+drop table profesores_tesoem;
+truncate table profesores_tesoem;
+
+create table profesores_tesoem(                                   /*CREACION DE LA TABLA PROFESORES_TESOEM*/
+id_prof number(10) constraint pk_id_prof primary key,
+nombre_prof char(25) not null,
+paterno_prof char(25) not null,
+materno_prof char(25) not null,
+carrera_prof char(100) not null,
+clase_prof nvarchar2(100) not null,
+grupo_prof  nvarchar2(100) not null
+);
+
+select*from profesores_tesoem;
+
+
+create or replace procedure pa_insertar_profesor           /*Creamos o reemplazamos el procedimiento almacenado y le asignamos el nombre con buenas practicas*/
+(pr_id_prof number default 0, pr_nombre_prof char default 'Desconocido',pr_paterno_prof char default 'Desconocido',                          /*Pasamos parametros*/
+pr_materno_prof char default 'Desconocido', pr_carrera_prof char default 'Desconocido', pr_clase_prof nvarchar2 default 'Sin especificar',
+pr_grupo_prof nvarchar2 default 'Sin especificar' )
+as
+begin
+insert into profesores_tesoem values (pr_id_prof,pr_nombre_prof,pr_paterno_prof,pr_materno_prof,pr_carrera_prof,pr_clase_prof,pr_grupo_prof);
+end;
+/
+
+EXECUTE pa_insertar_profesor;          /*Ejecutamos el procedimiento almacenado creado*/
+
+EXECUTE pa_insertar_profesor(1,'Magaly','Gonzalez','Mota','Sistemas Computacionales','Calculo Diferencial,' || ' Calculo Integral','1S11,'||' 2S12,'||' 4S12,');   /*Ejecutamos e insertamos en el procedimiento almacenado los datos recabados*/
+EXECUTE pa_insertar_profesor(2,'Gustavo Moises ','Romero','Gonzalez','Sistemas Computacionales','Sistemas Operativos','5S11,'||' 6S11,'||' 6S12');
+EXECUTE pa_insertar_profesor(3,'Francisco Raul','Salvador','Ginez','Sistemas Computacionales','Redes','6S11,'||'6S12');
+
+EXECUTE pa_insertar_profesor(4,'Alberto','Dorado','Mendez','Ingeniería Industrial','Matematicas','2I12');
+EXECUTE pa_insertar_profesor(5,'Jose','Flores','Flores','Ingeniería Industrial','Automatas','8I11,'||' 8I12');
+EXECUTE pa_insertar_profesor(6,'Mayra','Ortiz','Gracida','Ingeniería Industrial','Estudio trabajo','4I11,'||' 4I11,'||' 4I12');
+
+EXECUTE pa_insertar_profesor(7,'Adriana','Ortega','Reyes','Sistemas Automotrices','Calculo','4SA11');
+EXECUTE pa_insertar_profesor(8,'Benito','Lopez','Razo','Sistemas Automotrices','Calculo Diferencial','5SA11,'||' 5SA12');
+EXECUTE pa_insertar_profesor(9,'Alicia','Mendoza','Garduño','Sistemas Automotrices','Circuitos','5SA12');
+
+EXECUTE pa_insertar_profesor(10,'Esthela','Martinez','Juarez','Gastronomia','Potabilizacion','6G11');
+EXECUTE pa_insertar_profesor(11,'Eduardo','Cordoba','Aragon','Gastronomia','Cocina','6G12');
+EXECUTE pa_insertar_profesor(12,'Victor','Durango','Morales','Gastronomia','Evaluacion','6G21');
+
+EXECUTE pa_insertar_profesor(13,'Miriam','Mesa','Loyola','Ambiental','Higiene','5A11,'||' 5A12');
+EXECUTE pa_insertar_profesor(14,'Jose','Meza','Martinez','Ambiental','Fundamentos','4A11,'||'4A12,'||' 4A21');
+EXECUTE pa_insertar_profesor(15,'Mendrano','Cabrera','Carrillo','Ambiental','Algebra','2A11,'||' 2A12');
+
+EXECUTE pa_insertar_profesor(16,'Zharahi','Castaño','Hernandez','Contabilidad','Calculo','6C11');
+EXECUTE pa_insertar_profesor(17,'Omar','Garcia','Jimenez','Contabilidad','Estadistica','3C12');
+EXECUTE pa_insertar_profesor(18,'Roberto','Lopez','Castro','Contabilidad','Tutorias','4C11');
+
+EXECUTE pa_insertar_profesor(19,'Julio Cesar','Muñoz','Perez','Energias Renovables','Algebra','2E11');
+EXECUTE pa_insertar_profesor(20,'Daniel','Martinez','Carbajal','Energias Renovables','Electromag','2E11');
+EXECUTE pa_insertar_profesor(21,'Victor','Fuentes','Olivares','Energias Renovables','Circuitos','4E11');
+
+EXECUTE pa_insertar_profesor(22,'Fernando','Salgado','Cruz','Administración','Taller de administracion','2AD22');
+EXECUTE pa_insertar_profesor(23,'Janett','Garcia','Sanchez','Administración','Investigacion','2AD22,'||' 2AD21');
+EXECUTE pa_insertar_profesor(24,'Enrique','Limon','Carrilla','Administración','Taller de investigación','2AD22,'||' 2AD21');
+
+EXECUTE pa_insertar_profesor(25,'Pedro Abel','Rojas','Rivera','TICS','Estructuras y OD','3T11');
+EXECUTE pa_insertar_profesor(26,'Nayely Beatriz','Gonzales','Contreras','TICS','Administracion general','3T11');
+EXECUTE pa_insertar_profesor(27,'Jose Luis','Villareal','Lopez','TICS','Electricidad','3T11');
+
+-------------------------------------------------------------------------
+
+
+create table prof_sistemas (    /*Creacion de la tabla profesores de sistemas*/
+id_profsis number (10) constraint pk_id_profsis primary key,  
+nombre_profsis  char(25) not null,
+paterno_profsis char(25) not null,
+materno_profsis char(25) not null,
+carrera_profsis char(100) not null,
+clase_profsis nvarchar2(100) not null,
+grupo_profsis nvarchar2(100) not null
+);
+
+create or replace procedure pa_insercion_profsis    /*Creamos o reemplazamos el procedimiento almacenado y le asignamos el nombre con buenas practicas*/
+as
+begin
+insert into prof_sistemas (id_profsis,nombre_profsis,paterno_profsis,materno_profsis,carrera_profsis,clase_profsis,grupo_profsis)
+select id_prof,nombre_prof,paterno_prof,materno_prof,carrera_prof,clase_prof,grupo_prof 
+from profesores_tesoem where carrera_prof='Sistemas Computacionales';
+end;
+/
+
+
+EXECUTE pa_insertar_profsis;
+select * from prof_sistemas;
+
+----------------------------------------------------------------------------------------------------
+
+create table prof_industrial(          /*Creacion de la tabla profesores de industrial*/
+id_profind number (10) constraint pk_id_profind primary key,  
+nombre_profind  char(25) not null,
+paterno_profind char(25) not null,
+materno_profind char(25) not null,
+carrera_profind char(100) not null,
+clase_profind nvarchar2(100) not null,
+grupo_profind nvarchar2(100) not null
+);
+
+create or replace procedure pa_insercion_profind    /*Creamos o reemplazamos el procedimiento almacenado y le asignamos el nombre con buenas practicas*/
+as
+begin
+insert into prof_industrial (id_profind,nombre_profind,paterno_profind,materno_profind,carrera_profind,clase_profind,grupo_profind)
+select id_prof,nombre_prof,paterno_prof,materno_prof,carrera_prof,clase_prof,grupo_prof 
+from profesores_tesoem where carrera_prof='Ingeniería Industrial';
+end;
+/
+
+
+EXECUTE pa_insercion_profind;
+select * from prof_industrial;
+
+----------------------------------------------------------------------------------------------------
+
+create table prof_automotriz(             /*Creacion de la tabla profesores de automotriz*/
+id_profauto number (10) constraint pk_id_profauto primary key,  
+nombre_profauto  char(25) not null,
+paterno_profauto char(25) not null,
+materno_profauto char(25) not null,
+carrera_profauto char(100) not null,
+clase_profauto nvarchar2(100) not null,
+grupo_profauto nvarchar2(100) not null
+);
+
+create or replace procedure pa_insercion_profauto         /*Creamos o reemplazamos el procedimiento almacenado y le asignamos el nombre con buenas practicas*/
+as 
+begin
+insert into prof_automotriz (id_profauto,nombre_profauto,paterno_profauto,materno_profauto,carrera_profauto,clase_profauto,grupo_profauto)
+select id_prof,nombre_prof,paterno_prof,materno_prof,carrera_prof,clase_prof,grupo_prof 
+from profesores_tesoem where carrera_prof='Sistemas Automotrices';
+end;
+/
+
+
+EXECUTE pa_insercion_profauto;
+select * from prof_automotriz;
+
+----------------------------------------------------------------------------------------------------
+
+create table prof_gastronomia(                     /*Creacion de la tabla profesores de gastro*/
+id_profgas number (10) constraint pk_id_profgas primary key, 
+nombre_profgas char(25) not null,
+paterno_profgas char(25) not null,
+materno_profgas char(25) not null,
+carrera_profgas char(100) not null,
+clase_profgas nvarchar2(100) not null,
+grupo_profgas nvarchar2(100) not null
+);
+
+create or replace procedure pa_insercion_profgas   /*Creamos o reemplazamos el procedimiento almacenado y le asignamos el nombre con buenas practicas*/
+as
+begin
+insert into prof_gastronomia (id_profgas,nombre_profgas,paterno_profgas,materno_profgas,carrera_profgas,clase_profgas,grupo_profgas)
+select id_prof,nombre_prof,paterno_prof,materno_prof,carrera_prof,clase_prof,grupo_prof 
+from profesores_tesoem where carrera_prof='Gastronomia';
+end;
+/
+
+
+EXECUTE pa_insercion_profgas;
+select * from prof_gastronomia;
+
+----------------------------------------------------------------------------------------------------
+
+create table prof_ambiental(                     /*Creacion de la tabla profesores de ambiental*/
+id_profamb number (10) constraint pk_id_profamb primary key,  
+nombre_profamb char(25) not null,
+paterno_profamb char(25) not null,
+materno_profamb char(25) not null,
+carrera_profamb char(100) not null,
+clase_profamb nvarchar2(100) not null,
+grupo_profamb nvarchar2(100) not null
+);
+
+create or replace procedure pa_insercion_profamb    /*Creamos o reemplazamos el procedimiento almacenado y le asignamos el nombre con buenas practicas*/
+as
+begin
+insert into prof_ambiental (id_profamb,nombre_profamb,paterno_profamb,materno_profamb,carrera_profamb,clase_profamb,grupo_profamb)
+select id_prof,nombre_prof,paterno_prof,materno_prof,carrera_prof,clase_prof,grupo_prof 
+from profesores_tesoem where carrera_prof='Ambiental';
+end;
+/
+
+
+EXECUTE pa_insercion_profamb;
+select * from prof_ambiental;
+
+----------------------------------------------------------------------------------------------------
+
+create table prof_contabilidad(          /*Creacion de la tabla profesores de conta*/
+id_profcont number (10) constraint pk_id_profcont primary key,  
+nombre_profcont char(25) not null,
+paterno_profcont char(25) not null,
+materno_profcont char(25) not null,
+carrera_profcont char(100) not null,
+clase_profcont nvarchar2(100) not null,
+grupo_profcont nvarchar2(100) not null
+);
+
+create or replace procedure pa_insercion_profcont    /*Creamos o reemplazamos el procedimiento almacenado y le asignamos el nombre con buenas practicas*/
+as
+begin
+insert into prof_contabilidad (id_profcont,nombre_profcont,paterno_profcont,materno_profcont,carrera_profcont,clase_profcont,grupo_profcont)
+select id_prof,nombre_prof,paterno_prof,materno_prof,carrera_prof,clase_prof,grupo_prof 
+from profesores_tesoem where carrera_prof='Contabilidad';
+end;
+/
+
+
+EXECUTE pa_insercion_profcont;
+select * from prof_contabilidad;
+
+----------------------------------------------------------------------------------------------------
+
+create table prof_energias(                  /*Creacion de la tabla profesores de energias*/
+id_profreno number (10) constraint pk_id_profreno primary key,  
+nombre_profreno char(25) not null,
+paterno_profreno char(25) not null,
+materno_profreno char(25) not null,
+carrera_profreno char(100) not null,
+clase_profreno nvarchar2(100) not null,
+grupo_profreno nvarchar2(100) not null
+);
+
+create or replace procedure pa_insercion_profreno    /*Creamos o reemplazamos el procedimiento almacenado y le asignamos el nombre con buenas practicas*/
+as
+begin
+insert into prof_energias (id_profreno,nombre_profreno,paterno_profreno,materno_profreno,carrera_profreno,clase_profreno,grupo_profreno)
+select id_prof,nombre_prof,paterno_prof,materno_prof,carrera_prof,clase_prof,grupo_prof 
+from profesores_tesoem where carrera_prof='Energias Renovables';
+end;
+/
+
+
+EXECUTE pa_insercion_profreno;
+select * from prof_energias;
+
+----------------------------------------------------------------------------------------------------
+
+create table prof_administracion(             /*Creacion de la tabla profesores de admin*/
+id_profadm number (10) constraint pk_id_profadm primary key,  
+nombre_profadm char(25) not null,
+paterno_profadm char(25) not null,
+materno_profadm char(25) not null,
+carrera_profadm char(100) not null,
+clase_profadm nvarchar2(100) not null,
+grupo_profadm nvarchar2(100) not null
+);
+
+create or replace procedure pa_insercion_profadm    /*Creamos o reemplazamos el procedimiento almacenado y le asignamos el nombre con buenas practicas*/
+as
+begin
+insert into prof_administracion (id_profadm,nombre_profadm,paterno_profadm,materno_profadm,carrera_profadm,clase_profadm,grupo_profadm)
+select id_prof,nombre_prof,paterno_prof,materno_prof,carrera_prof,clase_prof,grupo_prof 
+from profesores_tesoem where carrera_prof='Administración';
+end;
+/
+
+
+EXECUTE pa_insercion_profadm;
+select * from prof_administracion;
+
+----------------------------------------------------------------------------------------------------
+
+create table prof_tics(     /*Creacion de la tabla profesores de tics*/
+id_proftics number (10) constraint pk_id_proftics primary key,  
+nombre_proftics char(25) not null,
+paterno_proftics char(25) not null,
+materno_proftics char(25) not null,
+carrera_proftics char(100) not null,
+clase_proftics nvarchar2(100) not null,
+grupo_proftics nvarchar2(100) not null
+);
+
+create or replace procedure pa_insercion_proftics   /*Creamos o reemplazamos el procedimiento almacenado y le asignamos el nombre con buenas practicas*/
+as
+begin
+insert into prof_tics (id_proftics,nombre_proftics,paterno_proftics,materno_proftics,carrera_proftics,clase_proftics,grupo_proftics)
+select id_prof,nombre_prof,paterno_prof,materno_prof,carrera_prof,clase_prof,grupo_prof 
+from profesores_tesoem where carrera_prof='TICS';
+end;
+/
+
+
+EXECUTE pa_insercion_proftics;
+select * from prof_tics;
+
+----------------------------------------------------------------------------------
+
+/*    FUNCION PARA DETERMINAR SI UN ALUMNO ES APTO PARA UNA BECA      */
+
+CREATE OR REPLACE FUNCTION f_aplicardesc(promedio_alum NUMBER)  /*Creamos o reemplazamos la funcion y le asignamos el nombre con buenas practicas*/
+RETURN VARCHAR2
+IS
+  mensaje varchar2(30);
+BEGIN
+  IF promedio_alum >= 90 THEN                        /*Se realizan comparaciones*/
+    mensaje:= 'Beca del 90%';
+  ELSIF promedio_alum >= 80 THEN
+    mensaje :='Beca del 75%';
+  ELSIF promedio_alum >= 70 THEN
+    mensaje :='Beca del 50%';
+  ELSIF promedio_alum <= 69 THEN
+    mensaje :='No apto para beca';
+  END IF;
+  RETURN mensaje;
+END;
+
+select matricula_alum,nombre_alum,paterno_alum,materno_alum, carrera_alum, promedio_alum, f_aplicardesc(promedio_alum) as porcentaje_descuento from alumnos_tesoem;
+
+
+
+
+
